@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { voteAnecdote } from "../reducers/anecdoteReducer"
-import { notificationChange, notificationHide, timeout, setNewTimeout } from "../reducers/notificationReducer"
+import { setNotification } from "../reducers/notificationReducer"
 
 const Anecdotes = () => {
   const dispatch = useDispatch()
@@ -26,15 +26,7 @@ const Anecdotes = () => {
               <button onClick={
                 () => {
                   dispatch(voteAnecdote(anecdote.id))
-
-                  if (timeout) {
-                    clearTimeout(timeout)
-                  }
-
-                  dispatch(notificationChange(`voted '${anecdote.content}'`))
-                  setNewTimeout(setTimeout(() => {
-                    dispatch(notificationHide())
-                  }, 5000))
+                  dispatch(setNotification(`voted ${anecdote.content}`, 5))
                 }
               }>vote</button>
             </div>
